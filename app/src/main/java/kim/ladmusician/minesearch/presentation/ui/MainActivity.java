@@ -47,16 +47,10 @@ public class MainActivity extends BaseActivity {
     void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_toolbar_new_game:
-                setInitGame();
-                setTimerInitialize();
-                txtStart.setClickable(true);
-                adapter.clearAndAddAll(SquareManager.getInstance().getSquareList());
+                setNewGame();
                 break;
             case R.id.main_toolbar_show_answer:
-                setTimerStop();
-                txtStart.setClickable(false);
-                SquareManager.getInstance().setAllSqureOpen();
-                adapter.clearAndAddAll(SquareManager.getInstance().getSquareList());
+                showAnswer();
                 break;
             case R.id.main_toolbar_start:
                 switch (currentState) {
@@ -75,37 +69,61 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void showAnswer() {
+        setTimerStop();
+        txtStart.setClickable(false);
+        SquareManager.getInstance().setAllSqureOpen();
+        adapter.clearAndAddAll(SquareManager.getInstance().getSquareList());
+    }
+
+    private void setNewGame() {
+        setInitGame();
+        setTimerInitialize();
+        txtStart.setClickable(true);
+        adapter.clearAndAddAll(SquareManager.getInstance().getSquareList());
+    }
+
+    /**
+     * set random mine
+     * set mine count
+     */
+    @Override
+    public void initLogic() {
+        setInitGame();
+    }
+
     @Override
     public void initView() {
         adapter = new MineAdapter(this);
         lvMine.setAdapter(adapter);
         lvMine.setHasFixedSize(true);
         lvMine.setLayoutManager(new GridLayoutManager(this, 10));
-
-        setInitGame();
-
         adapter.addAll(SquareManager.getInstance().getSquareList());
         adapter.setOnRecyclerItemClickListener((id, position) -> {
             switch (id) {
                 case R.id.item_mine:
-                    if (currentState == GameEnum.RUN) {
-                        adapter.getItem(position).setCheck(true);
-                        SquareManager.getInstance().setCheck(position);
-                        adapter.notifyItemChanged(position);
-
-                        if (SquareManager.getInstance().isSuccess()) {
-                            setTimerStop();
-                            openDialog(R.string.success_game_title, R.string.success_game_content);
-                        }
-
-                        if (adapter.getItem(position).isMine()) {
-                            setTimerStop();
-                            openDialog(R.string.finish_game_title, R.string.finish_game_content);
-                        }
-                    }
+                    handleSquareClick(position);
                     break;
             }
         });
+    }
+
+    private void handleSquareClick(int position) {
+        if (currentState == GameEnum.RUN) {
+            adapter.getItem(position).setCheck(true);
+            SquareManager.getInstance().setCheck(position);
+            adapter.notifyItemChanged(position);
+
+            if (SquareManager.getInstance().isSuccess()) {
+                setTimerStop();
+                openDialog(R.string.success_game_title, R.string.success_game_content);
+            }
+
+            if (adapter.getItem(position).isMine()) {
+                setTimerStop();
+                openDialog(R.string.finish_game_title, R.string.finish_game_content);
+            }
+        }
     }
 
     private void setInitGame() {
