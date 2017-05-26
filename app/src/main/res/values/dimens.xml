@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_side">16dp</dimen>
+    <dimen name="toolbar_size">56dp</dimen>
+    <dimen name="mine_size">27dp</dimen>
+
+    <!-- dialog -->
+    <dimen name="dialog_w">270dp</dimen>
+    <dimen name="dialog_w_b">300dp</dimen>
+    <dimen name="dialog_title_size">22dp</dimen>
+    <dimen name="dialog_wrapper_radius">15dp</dimen>
+    <dimen name="dialog_switch_rename_edit_padding_bottom">15dp</dimen>
+</resources>

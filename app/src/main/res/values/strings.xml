@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">mineSearch</string>
+
+    <!--toolbar-->
+    <string name="tb_start">시작</string>
+    <string name="tb_stop">정지</string>
+    <string name="tb_regame">새게임</string>
+    <string name="tb_answer">정답보기</string>
+
+    <string name="success_game_title">게임성공</string>
+    <string name="success_game_content">대단하군요.. 이제 저를 뽑아주세요.</string>
+
+    <string name="finish_game_title">게임종료</string>
+    <string name="finish_game_content">지뢰를 밟으셨군요..</string>
+    <string name="dialog_btn_txt">재시작</string>
 </resources>

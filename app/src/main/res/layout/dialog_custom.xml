@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="kim.ladmusician.minesearch.presentation.ui.dialog.DialogModel"/>
+
+        <variable
+            name="dialog"
+            type="kim.ladmusician.minesearch.presentation.ui.dialog.CustomDialog"/>
+
+        <import type="android.view.View"
+            alias="View"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/activity_main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@color/transparent">
+
+        <RelativeLayout
+            android:layout_width="@dimen/dialog_w"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingTop="@dimen/padding_side"
+            android:background="@drawable/style_dialog_border_radius">
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dialog_title_size"
+                android:text="@{item.title}"/>
+
+            <TextView
+                android:id="@+id/dialog_content"
+                android:layout_below="@+id/dialog_title"
+                android:layout_marginTop="@dimen/padding_side"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="@{item.message != null ? View.VISIBLE : View.GONE}"
+                android:text="@{item.message}" />
+
+            <TextView
+                android:id="@+id/dialog_btn_ok"
+                android:layout_below="@+id/dialog_content"
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:textColor="@color/blue_300"
+                android:text="@{item.btnTxt}"
+                android:onClick="@{dialog::onBtnClick}"
+                android:background="@drawable/style_border_top"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
